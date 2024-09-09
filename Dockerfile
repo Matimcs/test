@@ -7,10 +7,9 @@ RUN apt-get update && apt-get install -y \
     curl unzip wget \
     xvfb
 
-
 # install geckodriver and firefox
 
-RUN GECKODRIVER_VERSION=`curl https://github.com/mozilla/geckodriver/releases/latest | grep -Po 'v[0-9]+.[0-9]+.[0-9]+'` && \
+RUN GECKODRIVER_VERSION=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep -Po '"tag_name": "\K(.*)(?=")') && \
     wget https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz && \
     tar -zxf geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz -C /usr/local/bin && \
     chmod +x /usr/local/bin/geckodriver && \
@@ -23,10 +22,9 @@ RUN FIREFOX_SETUP=firefox-setup.tar.bz2 && \
     ln -s /opt/firefox/firefox /usr/bin/firefox && \
     rm $FIREFOX_SETUP
 
-
 # install chromedriver and google-chrome
 
-RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
+RUN CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE) && \
     wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip -d /usr/bin && \
     chmod +x /usr/bin/chromedriver && \
@@ -38,7 +36,6 @@ RUN CHROME_SETUP=google-chrome.deb && \
     apt-get install -y -f && \
     rm $CHROME_SETUP
 
-
 # install phantomjs
 
 RUN wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
@@ -46,10 +43,7 @@ RUN wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x
     cp phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs && \
     rm phantomjs-2.1.1-linux-x86_64.tar.bz2
 
-
-RUN pip3 install selenium
-RUN pip3 install pyvirtualdisplay
-RUN pip3 install Selenium-Screenshot
+RUN pip3 install selenium pyvirtualdisplay Selenium-Screenshot
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
@@ -60,5 +54,4 @@ WORKDIR /$APP_HOME
 
 COPY . $APP_HOME/
 
-CMD tail -f /dev/null
-CMD python3 main.py
+CMD ["python3", "main.py"]
