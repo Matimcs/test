@@ -253,9 +253,6 @@ async def agregar(ctx):
                 firefox_options.set_preference("media.navigator.permission.disabled", False)
                 firefox_options.add_argument("--headless")  # Agrega esta línea para ejecutar en modo headless
 
-                # Crear perfil de Firefox en el directorio temporal
-                firefox_options.profile = "/tmp/firefox_profile"
-
                 # Crear una instancia del navegador (en este ejemplo, usaremos Firefox)
                 driver = webdriver.Firefox(options=firefox_options)
                 driver.get(url)
