@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
 
 # Instalar Firefox
 RUN apt-get install -y firefox-esr
+RUN apt-get update && apt-get install -y firefox-esr geckodriver
+RUN apt-get install -y libdbus-glib-1-2 libgtk-3-0
 
 # Instalar dependencias de Python
 COPY requirements.txt requirements.txt
