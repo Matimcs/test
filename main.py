@@ -244,7 +244,6 @@ async def agregar(ctx):
                 #print(f"El comando fue enviado por: {author}, abriendo {url}")
 
                 # Configura el perfil de Firefox
-                firefox_profile_path = r'C:\Users\Matias\AppData\Roaming\Mozilla\Firefox\Profiles\zoikq2v8.default-release'
                 firefox_profile = webdriver.FirefoxProfile()
                 firefox_options = webdriver.FirefoxOptions()
                 firefox_options.add_argument(f'--profile={firefox_profile_path}')
