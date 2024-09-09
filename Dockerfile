@@ -4,10 +4,10 @@ FROM python:3.8
 # Instalar las bibliotecas necesarias
 RUN apt-get update && apt-get install -y --no-install-recommends \
     software-properties-common \
-    firefox \
     wget \
     libdbus-glib-1-2 \
     libgtk-3-0 && \
+    apt-get install -y firefox && \
     wget -q https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz && \
     tar -xvzf geckodriver-v0.33.0-linux64.tar.gz && \
     mv geckodriver /usr/local/bin/ && \
