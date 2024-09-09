@@ -32,15 +32,14 @@ os.makedirs("/tmp/firefox_profile", exist_ok=True)
 # Configura el perfil de Firefox
 firefox_profile = webdriver.FirefoxProfile()
 firefox_options = webdriver.FirefoxOptions()
-firefox_options.add_argument(f'--profile={firefox_profile_path}')
 firefox_options.set_preference("media.navigator.permission.disabled", False)
 firefox_options.add_argument("--headless")  # Agrega esta línea para ejecutar en modo headless
 
-# Crear perfil de Firefox en el directorio temporal
-firefox_options.profile = "/tmp/firefox_profile"
+# Si quieres establecer preferencias, hazlo sin duplicar el perfil
+profile = webdriver.FirefoxProfile("/tmp/firefox_profile")
 
 # Crear una instancia del navegador (en este ejemplo, usaremos Firefox)
-driver = webdriver.Firefox(options=firefox_options)
+driver = webdriver.Firefox(firefox_profile=profile,options=firefox_options)
                 
 # URLs según el autor del mensaje
 urls = {
