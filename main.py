@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import asyncio
@@ -29,17 +30,24 @@ MESSAGE_CHANNEL_ID = 1280769149982740533
 # Crear un directorio temporal para el perfil de Firefox
 os.makedirs("/tmp/firefox_profile", exist_ok=True)
 
-# Configura el perfil de Firefox
-firefox_profile = webdriver.FirefoxProfile()
-firefox_options = webdriver.FirefoxOptions()
-firefox_options.set_preference("media.navigator.permission.disabled", False)
-firefox_options.add_argument("--headless")  # Agrega esta línea para ejecutar en modo headless
+# Configura FirefoxOptions
+firefox_options = Options()
+firefox_options.add_argument("--headless")  # Modo headless
 
-# Si quieres establecer preferencias, hazlo sin duplicar el perfil
-profile = webdriver.FirefoxProfile("/tmp/firefox_profile")
+# Crea y configura el perfil
+profile = FirefoxProfile("/tmp/firefox_profile")
 
-# Crear una instancia del navegador (en este ejemplo, usaremos Firefox)
-driver = webdriver.Firefox(firefox_profile=profile,options=firefox_options)
+# Configura el perfil en las opciones de Firefox
+firefox_options.profile = profile
+
+# Especifica la ubicación del geckodriver si es necesario
+geckodriver_path = "/path/to/geckodriver"
+
+# Inicializa el servicio de Firefox
+service = Service(geckodriver_path)
+
+# Inicializa el driver de Firefox
+driver = webdriver.Firefox(service=service, options=firefox_options)
                 
 # URLs según el autor del mensaje
 urls = {
