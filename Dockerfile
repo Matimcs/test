@@ -22,6 +22,9 @@ COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 RUN pip install gunicorn
 
+# Otorgar permisos de escritura en el directorio /tmp
+RUN chmod 777 /tmp
+
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME
