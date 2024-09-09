@@ -246,7 +246,6 @@ async def agregar(ctx):
                 # Configura el perfil de Firefox
                 firefox_profile = webdriver.FirefoxProfile()
                 firefox_options = webdriver.FirefoxOptions()
-                firefox_options.add_argument(f'--profile={firefox_profile_path}')
                 firefox_options.set_preference("media.navigator.permission.disabled", False)
                 firefox_options.add_argument("--headless")  # Agrega esta línea para ejecutar en modo headless
 
