@@ -30,7 +30,6 @@ MESSAGE_CHANNEL_ID = 1280769149982740533
 os.makedirs("/tmp/firefox_profile", exist_ok=True)
 
 # Configura el perfil de Firefox
-firefox_profile_path = r'C:\Users\Matias\AppData\Roaming\Mozilla\Firefox\Profiles\zoikq2v8.default-release'
 firefox_profile = webdriver.FirefoxProfile()
 firefox_options = webdriver.FirefoxOptions()
 firefox_options.add_argument(f'--profile={firefox_profile_path}')
