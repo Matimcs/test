@@ -1,9 +1,12 @@
 import discord
 from discord.ext import commands
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import asyncio
@@ -241,11 +244,12 @@ async def agregar(ctx):
             if author in urls:
                 processing_message = await ctx.send(":timer: ***Procesando partida...***")
                 url = urls[author]
-                #print(f"El comando fue enviado por: {author}, abriendo {url}")
 
                 # Configura el perfil de Firefox
+                firefox_profile_path = r'C:\Users\Matias\AppData\Roaming\Mozilla\Firefox\Profiles\zoikq2v8.default-release'
                 firefox_profile = webdriver.FirefoxProfile()
                 firefox_options = webdriver.FirefoxOptions()
+                firefox_options.add_argument(f'--profile={firefox_profile_path}')
                 firefox_options.set_preference("media.navigator.permission.disabled", False)
                 firefox_options.add_argument("--headless")  # Agrega esta línea para ejecutar en modo headless
 
@@ -258,6 +262,7 @@ async def agregar(ctx):
                     table = WebDriverWait(driver, 10).until(
                         EC.presence_of_element_located((By.XPATH, '//*[@id="match-list-outer"]/table'))
                     )
+
                     first_row_link = table.find_element(By.XPATH, './/tr[1]/td/a')
                     
                     # Obtén el enlace de la primera fila en la tabla
