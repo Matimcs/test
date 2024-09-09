@@ -2,16 +2,13 @@
 FROM python:3.8
 
 # Instalar las bibliotecas necesarias
-RUN apt-get update && apt-get install -y \
-    gconf-service libasound2 libatk1.0-0 libcairo2 libcups2 libfontconfig1 \
-    libgdk-pixbuf2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libxss1 fonts-liberation \
-    libappindicator1 libnss3 lsb-release xdg-utils \
-    libvulkan1 mesa-vulkan-drivers
-
-# Instalar Firefox
-RUN apt-get install -y firefox-esr
-RUN apt-get update && apt-get install -y firefox-esr geckodriver
-RUN apt-get install -y libdbus-glib-1-2 libgtk-3-0
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    firefox-esr \
+    geckodriver \
+    libdbus-glib-1-2 \
+    libgtk-3-0 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Instalar dependencias de Python
 COPY requirements.txt requirements.txt
