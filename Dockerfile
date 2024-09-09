@@ -4,19 +4,19 @@ FROM python:3.8
 # Instalar las bibliotecas necesarias
 RUN apt-get update && apt-get install -y --no-install-recommends \
     software-properties-common \
-    firefox-esr \
+    firefox \
     wget \
     libdbus-glib-1-2 \
     libgtk-3-0 && \
-    wget -q https://github.com/mozilla/geckodriver/releases/latest/download/geckodriver-v0.33.0-linux64.tar.gz && \
-    tar -xvzf geckodriver* && \
+    wget -q https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz && \
+    tar -xvzf geckodriver-v0.33.0-linux64.tar.gz && \
     mv geckodriver /usr/local/bin/ && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Instalar dependencias de Python
 COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install gunicorn
 
 # Copiar el código local a la imagen
