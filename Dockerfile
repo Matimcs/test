@@ -14,7 +14,7 @@ RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 # Install Python dependencies.
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-
+RUN pip install gunicorn
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME
