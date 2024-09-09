@@ -11,9 +11,9 @@ RUN apt-get update && apt-get install -y libvulkan1 mesa-vulkan-drivers
 RUN apt-get install -y firefox-esr
 
 # Install geckodriver
-RUN apt-get install -y wget
-RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz
-RUN tar -xvzf geckodriver-v0.30.0-linux64.tar.gz
+# Install geckodriver 0.35.0
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.35.0/geckodriver-v0.35.0-linux64.tar.gz
+RUN tar -xvzf geckodriver-v0.35.0-linux64.tar.gz
 RUN chmod +x geckodriver
 RUN mv geckodriver /usr/local/bin/
 
