@@ -26,6 +26,23 @@ GUILD_ID = 891766531699118131
 CHANNEL_ID = 891766531699118134
 MESSAGE_CHANNEL_ID = 1280769149982740533
 
+# Crear un directorio temporal para el perfil de Firefox
+os.makedirs("/tmp/firefox_profile", exist_ok=True)
+
+# Configura el perfil de Firefox
+firefox_profile_path = r'C:\Users\Matias\AppData\Roaming\Mozilla\Firefox\Profiles\zoikq2v8.default-release'
+firefox_profile = webdriver.FirefoxProfile()
+firefox_options = webdriver.FirefoxOptions()
+firefox_options.add_argument(f'--profile={firefox_profile_path}')
+firefox_options.set_preference("media.navigator.permission.disabled", False)
+firefox_options.add_argument("--headless")  # Agrega esta línea para ejecutar en modo headless
+
+# Crear perfil de Firefox en el directorio temporal
+firefox_options.profile = "/tmp/firefox_profile"
+
+# Crear una instancia del navegador (en este ejemplo, usaremos Firefox)
+driver = webdriver.Firefox(options=firefox_options)
+                
 # URLs según el autor del mensaje
 urls = {
     "matimcs": "https://csstats.gg/player/76561198257828663#/matches",
@@ -244,20 +261,7 @@ async def agregar(ctx):
             if author in urls:
                 processing_message = await ctx.send(":timer: ***Procesando partida...***")
                 url = urls[author]
-
-                # Configura el perfil de Firefox
-                firefox_profile_path = r'C:\Users\Matias\AppData\Roaming\Mozilla\Firefox\Profiles\zoikq2v8.default-release'
-                firefox_profile = webdriver.FirefoxProfile()
-                firefox_options = webdriver.FirefoxOptions()
-                firefox_options.add_argument(f'--profile={firefox_profile_path}')
-                firefox_options.set_preference("media.navigator.permission.disabled", False)
-                firefox_options.add_argument("--headless")  # Agrega esta línea para ejecutar en modo headless
-
-                # Crear perfil de Firefox en el directorio temporal
-                firefox_options.profile = "/tmp/firefox_profile"
-
-                # Crear una instancia del navegador (en este ejemplo, usaremos Firefox)
-                driver = webdriver.Firefox(options=firefox_options)
+                
                 driver.get(url)
 
                 try:
