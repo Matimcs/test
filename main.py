@@ -31,7 +31,10 @@ os.makedirs("/tmp/firefox_profile", exist_ok=True)
 
 # Configura FirefoxOptions
 firefox_options = Options()
-firefox_options.add_argument("--headless")  # Modo headless
+firefox_options.add_argument("--headless")
+firefox_options.add_argument("--disable-gpu")
+firefox_options.add_argument("--no-sandbox")
+firefox_options.add_argument("--disable-dev-shm-usage")
 
 # Crea y configura el perfil
 profile = FirefoxProfile("/tmp/firefox_profile")
