@@ -40,7 +40,7 @@ profile = FirefoxProfile("/tmp/firefox_profile")
 firefox_options.profile = profile
 
 # Especifica la ubicación del geckodriver si es necesario
-geckodriver_path = "/path/to/geckodriver"
+geckodriver_path = "/usr/local/bin/geckodriver"
 
 # Inicializa el servicio de Firefox
 service = Service(geckodriver_path)
